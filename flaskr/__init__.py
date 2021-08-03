@@ -6,6 +6,10 @@ from flask_migrate import Migrate
 from flask import request
 from flask import render_template
 
+from dotenv import dotenv_values
+config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
+
+
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
