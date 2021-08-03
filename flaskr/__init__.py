@@ -5,6 +5,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask import request
 from flask import render_template
+from .models import CarsModel
+
 
 from dotenv import dotenv_values
 config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
@@ -43,23 +45,6 @@ app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://patriciaehrhardt:thepasswo
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
-class CarsModel(db.Model):
-    __tablename__ = 'cars'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
-    model = db.Column(db.String())
-    doors = db.Column(db.Integer())
-
-    def __init__(self, name, model, doors):
-        self.name = name
-        self.model = model
-        self.doors = doors
-
-    def __repr__(self):
-        return f"<Car {self.name}>"
-
-
 # a simple page that says hello
 @app.route('/hello')
 @app.route('/hello/<name>')
@@ -67,7 +52,7 @@ def hello(name=None):
     return render_template('hello.html', name=name)
 
 
-# Imports and CarsModel truncated    
+# Imports and CarsModel truncated
 @app.route('/cars', methods=['POST', 'GET'])
 def handle_cars():
     if request.method == 'POST':
