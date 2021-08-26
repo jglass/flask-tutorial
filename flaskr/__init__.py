@@ -1,26 +1,24 @@
 import os
 import psycopg2
+import pdb
 from flask import Flask
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask import request
 from flask import render_template
 from .models import CarsModel
+from .models import GamesModel
 
 
-from dotenv import dotenv_values
-config = dotenv_values(".env")  # config = {"USER": "foo", "EMAIL": "foo@example.org"}
-
+from dotenv import load_dotenv
+load_dotenv()
 
 def create_app(test_config=None):
     # create and configure the app
     app = Flask(__name__, instance_relative_config=True)
-    app.config.from_mapping(
-        SECRET_KEY='dev',
-        DATABASE="postgresql:///flasktutorial_dev"
 
-    )
-
+    app.config["DATABASE_USER"]     = os.environ.get("DATABASE_USER")
+    app.config["DATABASE_PASSWORD"] = os.environ.get("DATABASE_PASSWORD")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db = SQLAlchemy(app)
@@ -40,8 +38,8 @@ def create_app(test_config=None):
 
     return app
 
-app = Flask(__name__)
-app.config['SQLALCHEMY_DATABASE_URI'] = "postgresql://patriciaehrhardt:thepassword@localhost/flasktutorial_dev"
+app = create_app()
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config['DATABASE_USER']}:{app.config['DATABASE_USER']}@localhost/flask_example"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
