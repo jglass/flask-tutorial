@@ -6,8 +6,9 @@ from flask_migrate import Migrate
 app = Flask(__name__)
 app.config["DATABASE_USER"]     = os.environ.get("DATABASE_USER")
 app.config["DATABASE_PASSWORD"] = os.environ.get("DATABASE_PASSWORD")
+app.config["DATABASE_NAME"] = os.environ.get("DATABASE_NAME")
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config['DATABASE_USER']}:{app.config['DATABASE_USER']}@localhost/flask_example"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config['DATABASE_USER']}:{app.config['DATABASE_PASSWORD']}@localhost/{app.config['DATABASE_NAME']}"
 db = SQLAlchemy(app)
 
 class GamesModel(db.Model):
@@ -26,18 +27,18 @@ class GamesModel(db.Model):
     def __repr__(self):
         return f"<Game {self.name}>"
 
-class CarsModel(db.Model):
-    __tablename__ = 'cars'
-
-    id = db.Column(db.Integer, primary_key=True)
-    name = db.Column(db.String())
-    model = db.Column(db.String())
-    doors = db.Column(db.Integer())
-
-    def __init__(self, name, model, doors):
-        self.name = name
-        self.model = model
-        self.doors = doors
-
-    def __repr__(self):
-        return f"<Car {self.name}>"
+# class CarsModel(db.Model):
+#     __tablename__ = 'cars'
+#
+#     id = db.Column(db.Integer, primary_key=True)
+#     name = db.Column(db.String())
+#     model = db.Column(db.String())
+#     doors = db.Column(db.Integer())
+#
+#     def __init__(self, name, model, doors):
+#         self.name = name
+#         self.model = model
+#         self.doors = doors
+#
+#     def __repr__(self):
+#         return f"<Car {self.name}>"

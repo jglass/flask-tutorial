@@ -6,8 +6,8 @@ from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask import request
 from flask import render_template
-from .models import CarsModel
 from .models import GamesModel
+#from .models import CarsModel
 
 
 from dotenv import load_dotenv
@@ -51,26 +51,55 @@ def hello(name=None):
     return render_template('hello.html', name=name)
 
 
-# Imports and CarsModel truncated
-@app.route('/cars', methods=['POST', 'GET'])
-def handle_cars():
+# Imports and GamesModel truncated
+@app.route('/games', methods=['POST', 'GET'])
+def handle_games():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            new_car = CarsModel(name=data['name'], model=data['model'], doors=data['doors'])
-            db.session.add(new_car)
+            new_game = GamesModel(name=data['name'], author=data['author'], image_url=data['image_url'])
+            db.session.add(new_game)
             db.session.commit()
-            return {"message": f"car {new_car.name} has been created successfully."}
+            return {"message": f"game {new_game.name} has been created successfully."}
         else:
             return {"error": "The request payload is not in JSON format"}
 
     elif request.method == 'GET':
-        cars = CarsModel.query.all()
+        games = GamesModel.query.all()
         results = [
             {
-                "name": car.name,
-                "model": car.model,
-                "doors": car.doors
-            } for car in cars]
+                "name": game.name,
+                "author": game.author,
+                "image_url": game.image_url
+            } for game in games]
 
-        return {"count": len(results), "cars": results}
+        return {"count": len(results), "games": results}
+
+
+
+
+
+
+# Imports and CarsModel truncated
+# @app.route('/cars', methods=['POST', 'GET'])
+# def handle_cars():
+#     if request.method == 'POST':
+#         if request.is_json:
+#             data = request.get_json()
+#             new_car = CarsModel(name=data['name'], model=data['model'], doors=data['doors'])
+#             db.session.add(new_car)
+#             db.session.commit()
+#             return {"message": f"car {new_car.name} has been created successfully."}
+#         else:
+#             return {"error": "The request payload is not in JSON format"}
+#
+#     elif request.method == 'GET':
+#         cars = CarsModel.query.all()
+#         results = [
+#             {
+#                 "name": car.name,
+#                 "model": car.model,
+#                 "doors": car.doors
+#             } for car in cars]
+#
+#         return {"count": len(results), "cars": results}
