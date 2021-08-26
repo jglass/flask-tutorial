@@ -19,6 +19,7 @@ def create_app(test_config=None):
 
     app.config["DATABASE_USER"]     = os.environ.get("DATABASE_USER")
     app.config["DATABASE_PASSWORD"] = os.environ.get("DATABASE_PASSWORD")
+    app.config["DATABASE_NAME"] = os.environ.get("DATABASE_NAME")
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 
     db = SQLAlchemy(app)
@@ -39,7 +40,7 @@ def create_app(test_config=None):
     return app
 
 app = create_app()
-app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config['DATABASE_USER']}:{app.config['DATABASE_USER']}@localhost/flask_example"
+app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config['DATABASE_USER']}:{app.config['DATABASE_PASSWORD']}@localhost/{app.config['DATABASE_NAME']}"
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 
