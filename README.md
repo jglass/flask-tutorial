@@ -6,7 +6,7 @@
 
 ## Virtual environments
 - https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-- python3 -m venv venv && source env/bin/activate
+- python3 -m venv venv && source venv/bin/activate
 
 
 ## Db migration
