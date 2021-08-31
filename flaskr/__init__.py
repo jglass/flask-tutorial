@@ -89,7 +89,7 @@ def handle_games():
                 "image_url": game.image_url
             } for game in games]
 
-        return {"count": len(results), "games": results}
+        return render_template('games.html', games=results)
 
 
 
