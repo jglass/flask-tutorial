@@ -6,8 +6,12 @@
 
 ## Virtual environments
 - https://packaging.python.org/guides/installing-using-pip-and-virtual-environments/
-- python3 -m venv venv && source venv/bin/activate
 
+### Initially
+- python3 -m venv venv
+
+### After that
+- source venv/bin/activate
 
 ## Db migration
 - python3 flaskr/models.py db init
