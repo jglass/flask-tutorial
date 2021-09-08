@@ -7,6 +7,7 @@ from flask_migrate import Migrate
 from flask import request
 from flask import render_template
 from .models import GamesModel
+from sqlalchemy.sql import select
 #from .models import CarsModel
 
 
@@ -46,9 +47,8 @@ db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
-# a simple page that says hello
-@app.route('/hello')
-@app.route('/hello/<name>')
+# boardgames
+@app.route('/board_games')
 def hello(name=None):
     return render_template('hello.html', name=name)
 
@@ -67,7 +67,16 @@ def handle_games():
             return {"error": "The request payload is not in JSON format"}
 
     elif request.method == 'GET':
-        games = GamesModel.query.all()
+        type = request.args.get('type')
+
+        if type == 'board_game':
+            games = GamesModel.query.filter(GamesModel.type=='board_game')
+        elif type == 'arcade':
+            games = GamesModel.query.filter(GamesModel.type=='arcade')
+        elif type == 'ttrpg':
+            games = GamesModel.query.filter(GamesModel.type=='ttrpg')
+        else:
+            games = GamesModel.query.all()
         results = [
             {
                 "name": game.name,
