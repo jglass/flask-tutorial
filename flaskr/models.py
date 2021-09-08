@@ -18,11 +18,13 @@ class GamesModel(db.Model):
     name = db.Column(db.String())
     author = db.Column(db.String())
     image_url = db.Column(db.String())
+    type = db.Column(db.String())
 
-    def __init__(self, name, author, image_url):
+    def __init__(self, name, author, image_url, type):
         self.name     = name
         self.author   = author
         self.image_url = image_url
+        self.type     = type
 
     def __repr__(self):
         return f"<Game {self.name}>"
