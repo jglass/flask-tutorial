@@ -24,6 +24,7 @@ def create_app(test_config=None):
     app.config["DATABASE_NAME"] = os.environ.get("DATABASE_NAME")
     app.config['SQLALCHEMY_DATABASE_URI'] = f"postgresql://{app.config['DATABASE_USER']}:{app.config['DATABASE_PASSWORD']}@localhost/{app.config['DATABASE_NAME']}"
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
+    app.secret_key = 'supersecretkey'
 
     db = SQLAlchemy(app)
 
