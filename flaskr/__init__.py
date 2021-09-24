@@ -1,15 +1,16 @@
 import os
 import psycopg2
 import pdb
-from flask import Flask
+from flask import Flask, flash
 from flask_sqlalchemy import SQLAlchemy
 from flask_migrate import Migrate
 from flask import request
-from flask import render_template
-from .models import GamesModel
-from sqlalchemy.sql import select
+from flask import render_template, redirect
+from .models import GameModel
+from sqlalchemy.sql import *
 #from .models import CarsModel
 
+from wtforms import Form, BooleanField, StringField, PasswordField, validators
 
 from dotenv import load_dotenv
 load_dotenv()
