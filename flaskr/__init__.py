@@ -87,3 +87,24 @@ def handle_games():
             } for game in games]
 
         return render_template('games.html', games=results)
+
+class GamesForm(Form):
+    name = StringField('Name', [validators.Length(min=1, max=250)])
+    author = StringField('Author', [validators.Length(min=1, max=199)])
+    image_url = StringField('Image Url', [validators.Length(min=1, max=350)])
+    type = StringField('Type', [validators.Length(min=1, max=35)])
+
+@app.route('/game_entry', methods=['GET', 'POST'])
+def game_entry():
+    form = GamesForm(request.form)
+    if request.method == 'POST' and form.validate():
+        stmt = (insert(GameModel.__table__).values(name=form.name.data, author=form.author.data, image_url=form.image_url.data, type=form.type.data))
+        compiled = stmt.compile()
+        conn = db.session.connection()
+        result = conn.execute(stmt)
+        db.session.commit()
+
+        flash('Game successfully added')
+        return redirect('/games')
+
+    return render_template('game_entry.html', form=form)
