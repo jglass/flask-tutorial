@@ -1,0 +1,12 @@
+<h1>Game Entry Form</h1>
+
+{% from "_formhelpers.html" import render_field %}
+<form method=post>
+  <dl>
+    {{ render_field(form.name) }}
+    {{ render_field(form.author) }}
+    {{ render_field(form.image_url) }}
+    {{ render_field(form.type) }}
+  </dl>
+  <p><input type=submit value=Submit></p>
+</form>
