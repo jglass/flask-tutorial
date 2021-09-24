@@ -53,13 +53,13 @@ def hello(name=None):
     return render_template('hello.html', name=name)
 
 
-# Imports and GamesModel truncated
+# Imports and GameModel truncated
 @app.route('/games', methods=['POST', 'GET'])
 def handle_games():
     if request.method == 'POST':
         if request.is_json:
             data = request.get_json()
-            new_game = GamesModel(name=data['name'], author=data['author'], image_url=data['image_url'])
+            new_game = GameModel(name=data['name'], author=data['author'], image_url=data['image_url'])
             db.session.add(new_game)
             db.session.commit()
             return {"message": f"game {new_game.name} has been created successfully."}
@@ -70,13 +70,13 @@ def handle_games():
         type = request.args.get('type')
 
         if type == 'board_game':
-            games = GamesModel.query.filter(GamesModel.type=='board_game')
+            games = GameModel.query.filter(GameModel.type=='board_game')
         elif type == 'arcade':
-            games = GamesModel.query.filter(GamesModel.type=='arcade')
+            games = GameModel.query.filter(GameModel.type=='arcade')
         elif type == 'ttrpg':
-            games = GamesModel.query.filter(GamesModel.type=='ttrpg')
+            games = GameModel.query.filter(GameModel.type=='ttrpg')
         else:
-            games = GamesModel.query.all()
+            games = GameModel.query.all()
         results = [
             {
                 "name": game.name,
