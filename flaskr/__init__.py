@@ -15,7 +15,7 @@ def create_app(test_config=None):
     app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
     app.secret_key = 'supersecretkey'
 
-    db = SQLAlchemy(app)
+    app.db = SQLAlchemy(app)
 
     if test_config is None:
         # load the instance config, if it exists, when not testing
