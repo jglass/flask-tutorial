@@ -1,8 +1,10 @@
 from .__init__ import app
-from flask import request
-from flask import render_template, redirect
+from flask import request, render_template, redirect, flash
 from .models import GameModel
 from .helpers import GamesForm
+from sqlalchemy import insert
+
+db = app.db
 
 # Imports and GameModel truncated
 @app.route('/games', methods=['POST', 'GET'])
