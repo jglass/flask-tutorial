@@ -4,6 +4,7 @@ from flask_migrate import Migrate
 from .__init__ import app
 
 db = app.db
+migrate = Migrate(app, db)
 
 class GameModel(db.Model):
     __tablename__ = 'games'
