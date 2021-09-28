@@ -49,12 +49,6 @@ db = SQLAlchemy(app)
 
 migrate = Migrate(app, db)
 
-# boardgames
-@app.route('/board_games')
-def hello(name=None):
-    return render_template('hello.html', name=name)
-
-
 # Imports and GameModel truncated
 @app.route('/games', methods=['POST', 'GET'])
 def handle_games():
