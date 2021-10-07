@@ -5,3 +5,7 @@ class GamesForm(Form):
     author = StringField('Author', [validators.Length(min=1, max=199)])
     image_url = StringField('Image Url', [validators.Length(min=1, max=350)])
     type = StringField('Type', [validators.Length(min=1, max=35)])
+
+class LoginForm(Form):
+    username = StringField('User Name', [validators.Length(min=1, max=250)])
+    password = PasswordField('Password', [validators.Length(min=1, max=199)])

@@ -2,7 +2,10 @@ from .__init__ import app
 from flask import request, render_template, redirect, flash
 from .models import GameModel
 from .helpers import GamesForm
+from .helpers import LoginForm
 from sqlalchemy import insert
+
+import pdb
 
 db = app.db
 
@@ -53,3 +56,28 @@ def game_entry():
         return redirect('/games')
 
     return render_template('game_entry.html', form=form)
+
+@app.route('/login', methods=('GET', 'POST'))
+def login():
+    form = LoginForm(request.form)
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+        error = None
+        user = db.execute(
+            'SELECT * FROM user WHERE username = ?', (username,)
+        ).fetchone()
+
+        if user is None:
+            error = 'Incorrect username.'
+        elif not check_password_hash(user['password'], password):
+            error = 'Incorrect password.'
+
+        if error is None:
+            session.clear()
+            session['user_id'] = user['id']
+            return redirect(url_for('index'))
+
+        flash(error)
+
+    return render_template('login.html', form=form)
