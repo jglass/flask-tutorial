@@ -18,6 +18,9 @@
 - flask db migrate
 - flask db upgrade
 
+## Add to Database
+https://www.postgresql.org/docs/9.5/sql-insert.html
+
 ## TODO
 - Add show page
 - Add delete functionality
