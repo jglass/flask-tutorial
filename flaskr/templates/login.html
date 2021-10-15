@@ -1,6 +1,17 @@
 <h1>Login form</h1>
 
 {% from "_formhelpers.html" import render_field %}
+
+{% with messages = get_flashed_messages() %}
+  {% if messages %}
+    <ul class=flashes>
+    {% for message in messages %}
+      <li>{{ message }}</li>
+    {% endfor %}
+    </ul>
+  {% endif %}
+{% endwith %}
+
 <form method=post>
   <dl>
     {{ render_field(form.username) }}
