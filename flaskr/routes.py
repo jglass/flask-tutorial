@@ -1,6 +1,6 @@
 from .__init__ import app
 from flask import request, render_template, redirect, flash
-from .models import GameModel
+from .models import GameModel, UserModel
 from .helpers import GamesForm
 from .helpers import LoginForm
 from sqlalchemy import insert
@@ -96,20 +96,20 @@ def login():
         username = request.form['username']
         password = request.form['password']
         error = None
-        user = db.execute(
-            'SELECT * FROM user WHERE username = ?', (username,)
-        ).fetchone()
+
+        user = UserModel.query.filter_by(email=username).first()
 
         if user is None:
             error = 'Incorrect username.'
-        elif not check_password_hash(user['password'], password):
-            error = 'Incorrect password.'
 
-        if error is None:
-            session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
+        # elif not check_password_hash(user['password'], password):
+        #     error = 'Incorrect password.'
 
+        # if error is None:
+        #     session.clear()
+        #     session['user_id'] = user['id']
+        #     return redirect(url_for('index'))
+        #
         flash(error)
 
     return render_template('login.html', form=form)
