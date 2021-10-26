@@ -18,10 +18,10 @@
 
 ### Create .env file
 - cp .env.example .env
-- add required variables to .env file
+- add required environmental variables to .env file
 
 ## Db migration
-- python3 flaskr/models.py db init
+- flask db stamp head (if starting from scratch)
 - flask db migrate
 - flask db upgrade
 
