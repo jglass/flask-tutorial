@@ -13,6 +13,9 @@
 ### After that
 - source venv/bin/activate
 
+### Install Packages
+- pip install -r requirements.txt
+
 ## Db migration
 - python3 flaskr/models.py db init
 - flask db migrate
