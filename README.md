@@ -16,6 +16,10 @@
 ### Install Packages
 - pip install -r requirements.txt
 
+### Create .env file
+- cp .env.example .env
+- add required variables to .env file
+
 ## Db migration
 - python3 flaskr/models.py db init
 - flask db migrate
