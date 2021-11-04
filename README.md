@@ -29,10 +29,11 @@
 https://www.postgresql.org/docs/9.5/sql-insert.html
 
 ## TODO
+- Finish routes test setup (with test config)
+- Add tests for CRUD
 - Add show page
 - Add delete functionality
 - Add update functionality
-- Add tests for CRUD
 - Add styling
 - Add authorization/authentication (Devise-like)
 - Deploy to Heroku
