@@ -29,7 +29,7 @@
 https://www.postgresql.org/docs/9.5/sql-insert.html
 
 ## TODO
-- Finish routes test setup (with test config)
+- Finish adding db setup/teardown for test
 - Add tests for CRUD
 - Add show page
 - Add delete functionality

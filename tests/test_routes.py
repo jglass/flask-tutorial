@@ -12,6 +12,15 @@ game_model = GameModel(name="Thirsty Sword Lesbians",
 
 app = create_app()
 
+@pytest.fixture(autouse=False)
+def db():
+    # Setup DB here
+
+    # Yield some data, database connection or nothing at all
+    yield None
+
+    # Delete DB here when the test ends
+
 def test_game_entry_post():
     with app.test_client() as test_client:
         response = test_client.post('/game_entry',  data=dict(name="Thirsty Sword Lesbians",
